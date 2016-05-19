@@ -7,7 +7,7 @@ window.onload=function (){
             for (var i = 0; i < response.length; i += 1) {
                 if (response[i].company_parent == false) {
                     Tree += response[i].company_name + "| " + response[i].company_earnings
-                        + (getSubTree(response[i], response, 1) ? "| "
+                        + (hasSubTree(response[i],response) ? "| "
                         + getSubEarnings(response[i], response) : "") + "<br>";
                     Tree += getSubTree(response[i], response, 1);
                 }
@@ -33,15 +33,24 @@ window.onload=function (){
                             Tree += "-";
                         }
                         Tree += dataTable[i].company_name + "| " + dataTable[i].company_earnings
-                            + (getSubTree(dataTable[i], dataTable, level + 1) ? "| "
+                            + (hasSubTree(dataTable[i], dataTable) ? "| "
                             + getSubEarnings(dataTable[i], dataTable) : "") + "<br>";
                         Tree += getSubTree(dataTable[i], dataTable, level + 1);
                     }
                 }
                 return Tree;
-
             }
-        });
+
+            function hasSubTree(parentNode, dataTable) {
+                for(var i = 0; i < dataTable.length; i += 1) {
+                    if (parentNode.company_id == dataTable[i].company_parent) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+       });
+
     }
      loadTree();
 
