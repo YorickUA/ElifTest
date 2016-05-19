@@ -2,7 +2,7 @@ window.onload=function (){
   
     function loadTree() {
         $.post(window.location.href + '?getTree', {data: null}, function (response) {
-            response = JSON.parse(response);
+            response = (JSON.parse(response)).reverse();
             var Tree = "";
             for (var i = 0; i < response.length; i += 1) {
                 if (response[i].company_parent == false) {
