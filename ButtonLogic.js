@@ -80,12 +80,13 @@ window.onload=function (){
     $('#ShowCompanyButton').on('click', function() {
         $.post(window.location.href+'?showCompany',{data:$('#showCompany').val()}, function (response){
             response=JSON.parse(response);
+            response['child_companies']=response['child_companies'].reverse();
             var child_comps="";
             for (var i=0; i<  response['child_companies'].length; i+=1) {
                 child_comps +=response['child_companies'][i].company_name+" ";
             }
             if(response) {
-                $('#ShowCompanyField').html("Company earnings: " + response.company_earnings + ", subsidiary companies: " +  child_comps);
+                $('#ShowCompanyField').html("Company earnings: " + response.company_earnings + "," + ' ' + "subsidiary companies: " +  child_comps);
 
             }
             else{
@@ -108,4 +109,4 @@ window.onload=function (){
                 loadTree();
         });
     });
-};
+};	
